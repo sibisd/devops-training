@@ -446,6 +446,107 @@
                 "sns:AddPermission"
             ],
             "Resource": "arn:aws:sns:eu-west-1:084828586425:*"
-        }
+        },
+		{
+            "Sid": "CreateRoles",
+            "Effect": "Allow",
+            "Action": "iam:CreateRole",
+            "Resource": [
+                "arn:aws:iam::084828586425:role/AWSAmplifyServiceRole",
+                "arn:aws:iam::084828586425:role/ragservices-lambda-execution-role",
+                "arn:aws:iam::084828586425:role/static-chat-lambda-execution-role",
+                "arn:aws:iam::084828586425:role/chat-history-sns-consumer-lambda-execution-role",
+                "arn:aws:iam::084828586425:role/GenAI-APIGatewayLogsRole"
+            ]
+        },
+        {
+			"Effect": "Allow",
+			"Action": [
+				"iam:CreateServiceLinkedRole"
+			],
+			"Resource": [
+				"arn:aws:iam::084828586425:role/aws-service-role/mrk.kms.amazonaws.com/AWSServiceRoleForKeyManagementServiceMultiRegionKeys"
+			]
+		},
+        {
+			"Sid": "Statement3",
+			"Effect": "Allow",
+			"Action": [
+				"iam:PutRolePolicy",
+				"iam:ListInstanceProfilesForRole"
+			],
+			"Resource": [
+				"arn:aws:iam::084828586425:role/AWSAmplifyServiceRole-AudiSense"
+			]
+		},
+        {
+			"Sid": "CreatePolicies",
+			"Effect": "Allow",
+			"Action": [
+			    "iam:AttachRolePolicy"
+			],
+			"Resource": [
+				"arn:aws:iam::084828586425:role/GenAI-APIGatewayLogsRole"
+			]
+		},
+        {
+            "Sid": "CreatePolicies",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreatePolicy",
+                "iam:CreatePolicyVersion",
+                "iam:DeletePolicyVersion"
+            ],
+            "Resource": [
+                "arn:aws:iam::084828586425:policy/genai-services-lambda-exec-policy",
+                "arn:aws:iam::084828586425:role/GenAI-APIGatewayLogsRole",
+                "arn:aws:iam::084828586425:policy/CloudWatchLogsAccessPolicy"
+            ]
+        },
+        {
+            "Sid": "IAMActions",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetPolicy",
+                "iam:GetPolicyVersion",
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListRolePolicies",
+                "iam:ListRoles",
+                "iam:TagRole",
+                "iam:UpdateAssumeRolePolicy",
+                "iam:UntagPolicy",
+                "iam:UntagRole",
+                "iam:CreateServiceLinkedRole"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:PassedToService": "lambda.amazonaws.com"
+                }
+            }
+        },
+        {
+			"Effect": "Allow",
+			"Action": [
+				"iam:PassRole"
+			],
+			"Resource": [
+				"arn:aws:iam::084828586425:role/ragservices-lambda-execution-role",
+				"arn:aws:iam::084828586425:role/static-chat-lambda-execution-role",
+				"arn:aws:iam::084828586425:role/chat-history-sns-consumer-lambda-execution-role",
+				"arn:aws:iam::084828586425:role/GenAI-APIGatewayLogsRole",
+                "arn:aws:iam::084828586425:role/AWSAmplifyServiceRole-AudiSense"
+			]
+		}
 	]
 }
